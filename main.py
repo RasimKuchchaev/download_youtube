@@ -12,19 +12,15 @@ def download_playlist(url_playlist):
     p = Playlist(url_playlist)
     print(f'Downloading: {p.title}')
     count = 1
-    count_err = 0
     for video in p.videos:
         print(f'INFO {count}/{p.length} : {video.title}')
         # video.streams.get_by_itag(22).download()
+        video.streams.get_by_itag(22).download(output_path=f"D:\\Video Lesson\\{video.author}\\{p.title}")
         count += 1
-        try:
-            video.streams.get_by_itag(22).download(output_path=f"D:\\Video Lesson\\{video.author}\\{p.title}")
-        except Exception as err:
-            print(err)
-            count_err += 1
 
-            with open("error.txt", "a") as file:
-                file.write(f"{count_err}    {video.title} \n")
+        # with open("error.txt", "a") as file:
+        #     file.write(f"{count_err}    {video.title} \n")
+
 
 def download_youtube_channel(url_channel):
     c = Channel(url_channel)
